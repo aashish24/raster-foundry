@@ -101,7 +101,8 @@ class InterpreterSpec
 
     val tms = Interpreter.interpretPure[Unit](
       ast = src1 - src2,
-      sourceMapping = Map(src1.id -> tileSource(4), src2.id -> tileSource(5))
+      sourceMapping = Map(src1.id -> tileSource(4), src2.id -> tileSource(5)),
+      false
     )
 
     tms shouldBe Valid(())
@@ -111,7 +112,7 @@ class InterpreterSpec
   it("interpretPure - multiple errors") {
     val ast: MapAlgebraAST = Addition(List(randomSourceAST), UUID.randomUUID, None)
 
-    Interpreter.interpretPure[Unit](ast, Map.empty) match {
+    Interpreter.interpretPure[Unit](ast, Map.empty, false) match {
       case Invalid(nel) => nel.size shouldBe 2
       case Valid(_) => fail
     }

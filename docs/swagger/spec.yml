@@ -2143,18 +2143,64 @@ definitions:
         type: object
       filters:
         $ref: '#/definitions/CombinedSceneQueryParams'
+
+  RGBBandOptions:
+    type: object
+    properties:
+      band:
+        type: number
+        format: integer
+      gamma:
+        type: object
+        properties:
+          enabled:
+            type: boolean
+          value:
+            type: number
+            format: float
+      clipping:
+        type: object
+        properties:
+          enabled:
+            type: boolean
+          min:
+            type: number
+            format: integer
+          max:
+            type: number
+            format: integer
+
+  SingleBandOptions:
+    type: object
+    properties:
+      band:
+        type: number
+        format: integer
+      dataType:
+        type: string
+      blendMode:
+        type: string
+      colorScheme:
+        type: object
+      legendOrientation:
+        type: string
+
   ColorCorrection:
     type: object
     properties:
-      redBand:
-        type: number
-        format: integer
-      greenBand:
-        type: number
-        format: integer
-      blueBand:
-        type: number
-        format: integer
+      isSingleBand:
+        type: boolean
+      singleBandOptions:
+        $ref: '#/definitions/SingleBandOptions'
+      rbgBandOptions:
+        type: object
+        properties:
+          red:
+            $ref: '#/definitions/RGBBandOptions'
+          green:
+            $ref: '#/definitions/RGBBandOptions'
+          blue:
+            $ref: '#/definitions/RGBBandOptions'
       sigmoidalContrast:
         type: object
         properties:
@@ -2166,54 +2212,6 @@ definitions:
           beta:
             type: number
             format: float
-      gamma:
-        type: object
-        properties:
-          enabled:
-            type: boolean
-          redGamma:
-            type: number
-            format: float
-          greenGamma:
-            type: number
-            format: float
-          blueGamma:
-            type: number
-            format: float
-      bandClipping:
-        type: object
-        properties:
-          enabled:
-            type: boolean
-          redMax:
-            type: number
-            format: int
-          redMin:
-            type: number
-            format: int
-          greenMax:
-            type: number
-            format: int
-          greenMin:
-            type: number
-            format: int
-          blueMax:
-            type: number
-            format: int
-          blueMin:
-            type: number
-            format: int
-      tileClipping:
-        type: object
-        properties:
-          enabled:
-            type: boolean
-          min:
-            type: number
-            format: int
-          max:
-            type: number
-            format: int
       saturation:
         type: object
         properties:
